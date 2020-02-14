@@ -1,0 +1,16 @@
+user table
+------------------------------------------------------------
+id		int		primary_key, auto_increment
+first_name	varchar(10)	
+last_name	varchar(10)
+email		varchar(20)
+password	varchar(60)
+
+event table
+------------------------------------------------------------
+id		int		primary_key, auto_increment
+name		varchar(10)
+deskripsi	varchar(60)
+alamat		varchar(20)
+harga		int
+
