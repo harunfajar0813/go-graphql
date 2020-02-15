@@ -1,4 +1,4 @@
-user table
+user_table
 ------------------------------------------------------------
 id		int		primary_key, auto_increment
 first_name	varchar(10)	
@@ -6,11 +6,19 @@ last_name	varchar(10)
 email		varchar(20)
 password	varchar(60)
 
-event table
+event_table
 ------------------------------------------------------------
 id		int		primary_key, auto_increment
 name		varchar(10)
 deskripsi	varchar(60)
 alamat		varchar(20)
+start_event	date
 harga		int
+user_id		int 		foreign_key, relational to user_table.id
+
+transaction_table
+------------------------------------------------------------
+id		int
+user_id		int
+event_id	int
 

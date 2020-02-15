@@ -74,8 +74,5 @@ func CreateEvent(db *gorm.DB) *graphql.Field {
 				Type: graphql.NewNonNull(graphql.String),
 			},
 		},
-		Resolve: func(p graphql.ResolveParams) (i interface{}, err error) {
-
-		},
 	}
 }
