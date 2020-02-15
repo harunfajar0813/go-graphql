@@ -7,17 +7,19 @@ import (
 	"graphi/graphql/field"
 )
 
-func userQueries(db *gorm.DB) *graphql.Object {
+func queries(db *gorm.DB) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Query",
 		Fields: graphql.Fields{
-			"getUsers": field.GetUsers(db),
-			"getUser" : field.GetUser(db),
+			"getUsers":  field.GetUsers(db),
+			"getUser":   field.GetUser(db),
+			"getEvents": field.GetEvents(db),
+			"getEvent":  field.GetEvent(db),
 		},
 	})
 }
 
-func userMutation(db *gorm.DB) *graphql.Object {
+func mutation(db *gorm.DB) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Mutation",
 		Fields: graphql.Fields{

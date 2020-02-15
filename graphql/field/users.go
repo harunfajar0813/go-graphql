@@ -24,6 +24,7 @@ var user = graphql.NewObject(
 	},
 )
 
+// query
 func GetUsers(db *gorm.DB) *graphql.Field {
 	return &graphql.Field{
 		Type: graphql.NewList(user),
@@ -53,15 +54,16 @@ func GetUser(db *gorm.DB) *graphql.Field {
 			if ok {
 				if err := db.First(&u, id).Error; err != nil {
 					log.Fatal(err)
+					return nil, err
 				}
-				return u[0], nil
 			}
-			return nil, nil
+			return u[0], nil
 		},
 		Description: "get user by id",
 	}
 }
 
+// mutation
 func CreateUser(db *gorm.DB) *graphql.Field {
 	return &graphql.Field{
 		Type: user,

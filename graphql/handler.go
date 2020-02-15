@@ -10,8 +10,8 @@ import (
 func NewUserHandler(db *gorm.DB) (*handler.Handler, error) {
 	schema, err := graphql.NewSchema(
 		graphql.SchemaConfig{
-			Query:    userQueries(db),
-			Mutation: userMutation(db),
+			Query:    queries(db),
+			Mutation: mutation(db),
 		},
 	)
 	if err != nil {

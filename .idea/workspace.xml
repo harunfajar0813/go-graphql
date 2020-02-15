@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="763b8557-a58b-4e78-9af6-6c42b7b4e765" name="Default Changelist" comment="" />
+    <list default="true" id="763b8557-a58b-4e78-9af6-6c42b7b4e765" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/domain/model/event.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain/model/transaction.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphql/field/events.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/field/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/field/users.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/query.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/query.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,10 +23,14 @@
     </option>
   </component>
   <component name="GOROOT" path="/snap/go/current" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1XkXce6BpSli7vTjPUpI3XhZhUG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -55,25 +67,33 @@
     <proxy>direct</proxy>
   </component>
   <component name="WindowStateProjectService">
+    <state x="465" y="110" width="464" height="596" key="#com.intellij.ide.util.MemberChooser" timestamp="1581751570297">
+      <screen x="38" y="27" width="1328" height="741" />
+    </state>
+    <state x="465" y="110" width="464" height="596" key="#com.intellij.ide.util.MemberChooser/38.27.1328.741@38.27.1328.741" timestamp="1581751570297" />
     <state x="485" y="155" width="424" height="491" key="FileChooserDialogImpl" timestamp="1581669200191">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
     <state x="485" y="155" width="424" height="491" key="FileChooserDialogImpl/38.27.1328.741@38.27.1328.741" timestamp="1581669200191" />
-    <state width="1282" height="172" key="GridCell.Tab.0.bottom" timestamp="1581707739885">
+    <state width="1282" height="172" key="GridCell.Tab.0.bottom" timestamp="1581752373985">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.bottom/38.27.1328.741@38.27.1328.741" timestamp="1581707739885" />
-    <state width="1282" height="172" key="GridCell.Tab.0.center" timestamp="1581707739883">
+    <state width="1282" height="172" key="GridCell.Tab.0.bottom/38.27.1328.741@38.27.1328.741" timestamp="1581752373985" />
+    <state width="1282" height="172" key="GridCell.Tab.0.center" timestamp="1581752373985">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.center/38.27.1328.741@38.27.1328.741" timestamp="1581707739883" />
-    <state width="1282" height="172" key="GridCell.Tab.0.left" timestamp="1581707739882">
+    <state width="1282" height="172" key="GridCell.Tab.0.center/38.27.1328.741@38.27.1328.741" timestamp="1581752373985" />
+    <state width="1282" height="172" key="GridCell.Tab.0.left" timestamp="1581752373985">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.left/38.27.1328.741@38.27.1328.741" timestamp="1581707739882" />
-    <state width="1282" height="172" key="GridCell.Tab.0.right" timestamp="1581707739884">
+    <state width="1282" height="172" key="GridCell.Tab.0.left/38.27.1328.741@38.27.1328.741" timestamp="1581752373985" />
+    <state width="1282" height="172" key="GridCell.Tab.0.right" timestamp="1581752373985">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.right/38.27.1328.741@38.27.1328.741" timestamp="1581707739884" />
+    <state width="1282" height="172" key="GridCell.Tab.0.right/38.27.1328.741@38.27.1328.741" timestamp="1581752373985" />
+    <state x="365" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1581750727609">
+      <screen x="38" y="27" width="1328" height="741" />
+    </state>
+    <state x="365" y="89" width="672" height="678" key="search.everywhere.popup/38.27.1328.741@38.27.1328.741" timestamp="1581750727609" />
   </component>
 </project>
