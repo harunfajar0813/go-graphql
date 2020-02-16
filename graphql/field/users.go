@@ -82,7 +82,6 @@ func CreateUser(db *gorm.DB) *graphql.Field {
 			},
 		},
 		Resolve: func(params graphql.ResolveParams) (i interface{}, e error) {
-
 			firstName, _ := params.Args["firstName"].(string)
 			lastName, _ := params.Args["lastName"].(string)
 			email, _ := params.Args["email"].(string)

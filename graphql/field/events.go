@@ -1,12 +1,10 @@
 package field
 
 import (
-	"log"
-
-	"github.com/jinzhu/gorm"
-
 	"github.com/graphql-go/graphql"
+	"github.com/jinzhu/gorm"
 	"graphi/domain/model"
+	"log"
 )
 
 var event = graphql.NewObject(graphql.ObjectConfig{
@@ -73,6 +71,42 @@ func CreateEvent(db *gorm.DB) *graphql.Field {
 			"description": &graphql.ArgumentConfig{
 				Type: graphql.NewNonNull(graphql.String),
 			},
+			"address": &graphql.ArgumentConfig{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"startEvent": &graphql.ArgumentConfig{
+				Type: graphql.NewNonNull(graphql.String),
+			},
+			"price": &graphql.ArgumentConfig{
+				Type: graphql.NewNonNull(graphql.Int),
+			},
+			"userId": &graphql.ArgumentConfig{
+				Type: graphql.NewNonNull(graphql.Int),
+			},
+		},
+		Resolve: func(p graphql.ResolveParams) (i interface{}, err error) {
+			name, _ := p.Args["name"].(string)
+			description, _ := p.Args["description"].(string)
+			address, _ := p.Args["address"].(string)
+			startEvent, _ := p.Args["startEvent"].(string)
+			price, _ := p.Args["price"].(int)
+			userId, _ := p.Args["userId"].(int)
+
+			newEvent := &model.Event{
+				Name:        name,
+				Description: description,
+				Address:     address,
+				StartEvent:  startEvent,
+				Price:       price,
+				UserID:      userId,
+			}
+
+			err = db.Debug().Model(&model.Event{}).Create(newEvent).Error
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			return newEvent, nil
 		},
 	}
 }
