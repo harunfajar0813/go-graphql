@@ -15,6 +15,7 @@ func queries(db *gorm.DB) *graphql.Object {
 			"getUser":   field.GetUser(db),
 			"getEvents": field.GetEvents(db),
 			"getEvent":  field.GetEvent(db),
+			"getBalancesStatus":  field.GetBalancesStatus(db),
 		},
 	})
 }

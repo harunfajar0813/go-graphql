@@ -18,7 +18,9 @@ var user = graphql.NewObject(
 			"firstName": &graphql.Field{Type: graphql.String},
 			"lastName":  &graphql.Field{Type: graphql.String},
 			"email":     &graphql.Field{Type: graphql.String},
+			"phone":     &graphql.Field{Type: graphql.String},
 			"password":  &graphql.Field{Type: graphql.String},
+			"events":    &graphql.Field{Type: graphql.NewList(event)},
 		},
 		Description: "Users data",
 	},
@@ -31,6 +33,9 @@ func GetUsers(db *gorm.DB) *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
 			var u []*model.User
 			if err := db.Find(&u).Error; err != nil {
+				log.Fatal(err)
+			}
+			if err := db.Preload("Events").Find(&u).Error; err != nil {
 				log.Fatal(err)
 			}
 			return u, nil
@@ -53,6 +58,10 @@ func GetUser(db *gorm.DB) *graphql.Field {
 			id, ok := p.Args["id"].(int)
 			if ok {
 				if err := db.First(&u, id).Error; err != nil {
+					log.Fatal(err)
+					return nil, err
+				}
+				if err := db.Set("gorm:auto_preload", true).Find(&u[0].Events).Error; err != nil {
 					log.Fatal(err)
 					return nil, err
 				}

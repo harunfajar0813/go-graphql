@@ -1,10 +1,13 @@
 package field
 
 import (
+	"errors"
+	"log"
+
 	"github.com/graphql-go/graphql"
 	"github.com/jinzhu/gorm"
+
 	"graphi/domain/model"
-	"log"
 )
 
 var event = graphql.NewObject(graphql.ObjectConfig{
@@ -92,21 +95,24 @@ func CreateEvent(db *gorm.DB) *graphql.Field {
 			price, _ := p.Args["price"].(int)
 			userId, _ := p.Args["userId"].(int)
 
-			newEvent := &model.Event{
-				Name:        name,
-				Description: description,
-				Address:     address,
-				StartEvent:  startEvent,
-				Price:       price,
-				UserID:      userId,
+			if price < 0 {
+				log.Fatal(errors.New("cannot set price is under 0"))
+				return nil, errors.New("cannot set price is under 0")
+			} else {
+				newEvent := &model.Event{
+					Name:        name,
+					Description: description,
+					Address:     address,
+					StartEvent:  startEvent,
+					Price:       price,
+					UserID:      userId,
+				}
+				err = db.Debug().Model(&model.Event{}).Create(newEvent).Error
+				if err != nil {
+					log.Fatal(err)
+				}
+				return newEvent, nil
 			}
-
-			err = db.Debug().Model(&model.Event{}).Create(newEvent).Error
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			return newEvent, nil
 		},
 	}
 }
