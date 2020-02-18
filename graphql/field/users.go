@@ -86,6 +86,9 @@ func CreateUser(db *gorm.DB) *graphql.Field {
 			"email": &graphql.ArgumentConfig{
 				Type: graphql.NewNonNull(graphql.String),
 			},
+			"phone": &graphql.ArgumentConfig{
+				Type: graphql.NewNonNull(graphql.String),
+			},
 			"password": &graphql.ArgumentConfig{
 				Type: graphql.NewNonNull(graphql.String),
 			},
@@ -94,12 +97,14 @@ func CreateUser(db *gorm.DB) *graphql.Field {
 			firstName, _ := params.Args["firstName"].(string)
 			lastName, _ := params.Args["lastName"].(string)
 			email, _ := params.Args["email"].(string)
+			phone, _ := params.Args["phone"].(string)
 			hashedPass, _ := bcrypt.GenerateFromPassword([]byte(params.Args["password"].(string)), bcrypt.DefaultCost)
 
 			newUser := &model.User{
 				FirstName: firstName,
 				LastName:  lastName,
 				Email:     email,
+				Phone:     phone,
 				Password:  string(hashedPass),
 			}
 

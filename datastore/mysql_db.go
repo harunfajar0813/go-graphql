@@ -12,7 +12,7 @@ func NewDB() (*gorm.DB, error) {
 		Passwd:               "",
 		Net:                  "tcp",
 		Addr:                 "127.0.0.1",
-		DBName:               "graphi",
+		DBName:               "cobain_dulu",
 		AllowNativePasswords: true,
 		Params: map[string]string{
 			"parseTime": "true",

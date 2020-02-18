@@ -17,8 +17,9 @@ var event = graphql.NewObject(graphql.ObjectConfig{
 		"name":        &graphql.Field{Type: graphql.String},
 		"description": &graphql.Field{Type: graphql.String},
 		"address":     &graphql.Field{Type: graphql.String},
-		"startEvent":  &graphql.Field{Type: graphql.DateTime},
+		"startEvent":  &graphql.Field{Type: graphql.String},
 		"price":       &graphql.Field{Type: graphql.Int},
+		"stock":       &graphql.Field{Type: graphql.Int},
 		"userId":      &graphql.Field{Type: graphql.Int},
 	},
 	Description: "Events data",
@@ -83,6 +84,9 @@ func CreateEvent(db *gorm.DB) *graphql.Field {
 			"price": &graphql.ArgumentConfig{
 				Type: graphql.NewNonNull(graphql.Int),
 			},
+			"stock": &graphql.ArgumentConfig{
+				Type: graphql.NewNonNull(graphql.Int),
+			},
 			"userId": &graphql.ArgumentConfig{
 				Type: graphql.NewNonNull(graphql.Int),
 			},
@@ -93,6 +97,7 @@ func CreateEvent(db *gorm.DB) *graphql.Field {
 			address, _ := p.Args["address"].(string)
 			startEvent, _ := p.Args["startEvent"].(string)
 			price, _ := p.Args["price"].(int)
+			stock, _ := p.Args["stock"].(int)
 			userId, _ := p.Args["userId"].(int)
 
 			if price < 0 {
@@ -105,6 +110,7 @@ func CreateEvent(db *gorm.DB) *graphql.Field {
 					Address:     address,
 					StartEvent:  startEvent,
 					Price:       price,
+					Stock:       stock,
 					UserID:      userId,
 				}
 				err = db.Debug().Model(&model.Event{}).Create(newEvent).Error

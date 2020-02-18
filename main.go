@@ -1,15 +1,19 @@
 package main
 
 import (
-	"graphi/graphql"
 	"log"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 
+	"graphi/autoload"
 	"graphi/datastore"
-	"graphi/handler"
+	"graphi/graphql"
 )
+
+func init() {
+	autoload.Load()
+}
 
 func main() {
 	db, err := datastore.NewDB()
@@ -25,13 +29,11 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.GET("/", handler.Welcome())
-
-	hUser, err := graphql.NewUserHandler(db)
+	allHandlers, err := graphql.NewUserHandler(db)
 	if err != nil {
 		log.Fatal(err)
 	}
-	e.POST("/graphql", echo.WrapHandler(hUser))
+	e.POST("/graphql", echo.WrapHandler(allHandlers))
 
 	if err := e.Start(":3000"); err != nil {
 		log.Fatalln(err)
