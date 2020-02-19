@@ -8,18 +8,18 @@ import (
 	"graphi/domain/model"
 )
 
-var balances_status = graphql.NewObject(graphql.ObjectConfig{
-	Name: "Balances Status",
+var balancesStatus = graphql.NewObject(graphql.ObjectConfig{
+	Name: "BalancesStatus",
 	Fields: graphql.Fields{
-		"id":          &graphql.Field{Type: graphql.ID},
-		"name":        &graphql.Field{Type: graphql.String},
+		"id":   &graphql.Field{Type: graphql.ID},
+		"name": &graphql.Field{Type: graphql.String},
 	},
 	Description: "Balances status data",
 })
 
 func GetBalancesStatus(db *gorm.DB) *graphql.Field {
 	return &graphql.Field{
-		Type: graphql.NewList(balances_status),
+		Type: graphql.NewList(balancesStatus),
 		Resolve: func(p graphql.ResolveParams) (i interface{}, err error) {
 			var bs []*model.BalanceStatus
 			if err := db.Find(&bs).Error; err != nil {
@@ -30,4 +30,3 @@ func GetBalancesStatus(db *gorm.DB) *graphql.Field {
 		Description: "get balances status",
 	}
 }
-
