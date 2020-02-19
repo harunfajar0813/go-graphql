@@ -39,6 +39,10 @@ func GetUsers(db *gorm.DB) *graphql.Field {
 			if err := db.Preload("Events").Find(&u).Error; err != nil {
 				log.Fatal(err)
 			}
+			for _, user := range u {
+				row := db.Table("balances").Where("user_id = ?", user.ID).Select("sum(amount)").Row()
+				row.Scan(&user.Balance)
+			}
 			return u, nil
 		},
 		Description: "get users",
@@ -65,6 +69,10 @@ func GetUser(db *gorm.DB) *graphql.Field {
 				if err := db.Set("gorm:auto_preload", true).Find(&u[0].Events).Error; err != nil {
 					log.Fatal(err)
 					return nil, err
+				}
+				for _, user := range u {
+					row := db.Table("balances").Where("user_id = ?", u[0].ID).Select("sum(amount)").Row()
+					row.Scan(&user.Balance)
 				}
 			}
 			return u[0], nil

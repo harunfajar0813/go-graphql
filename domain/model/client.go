@@ -9,7 +9,7 @@ type Client struct {
 	Email        string        `gorm:"column:email" json:"email"`
 	Phone        string        `gorm:"column:phone" json:"phone"`
 	Password     string        `gorm:"column:password" json:"password"`
-	Balance      string        `json:"balance"`
+	Balance      string        `gorm:"PRELOAD:false" json:"balance"`
 	Transactions []Transaction `gorm:"PRELOAD:false" json:"transactions"`
 	CreatedAt    time.Time     `gorm:"default:current_timestamp()" json:"created_at"`
 	UpdatedAt    time.Time     `gorm:"default:current_timestamp()" json:"created_at"`

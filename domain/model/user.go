@@ -10,8 +10,8 @@ type User struct {
 	Email       string    `gorm:"column:email" json:"email"`
 	Phone       string    `gorm:"column:phone" json:"phone"`
 	Password    string    `gorm:"column:password" json:"password"`
+	Balance     string    `gorm:"-" json:"balance"`
 	Events      []Event   `gorm:"PRELOAD:false" json:"events"`
-	Balance     string    `json:"balance"`
 	CreatedAt   time.Time `gorm:"default:current_timestamp()" json:"created_at"`
 	UpdatedAt   time.Time `gorm:"default:current_timestamp()" json:"created_at"`
 	DeletedAt   time.Time `gorm:"default:null" json:"created_at"`

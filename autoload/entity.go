@@ -14,7 +14,7 @@ func Load() {
 	}
 	defer db.Close()
 
-	err = db.Debug().DropTableIfExists(&model.Event{}, &model.Balance{}, &model.Transaction{}).Error
+	err = db.Debug().DropTableIfExists(&model.Transaction{}, &model.Event{}, &model.Balance{}).Error
 	if err != nil {
 		log.Fatal(err)
 	}
