@@ -1,10 +1,10 @@
 package model
 
 type Balance struct {
-	ID              int `json:"id"`
-	Amount          int `json:"amount"`
-	BalanceStatusID int `json:"balance_status_id"`
-	UserID          int `json:"user_id"`
+	ID              int    `gorm:"primary_key" json:"id"`
+	Amount          string `gorm:"column:name; not null" json:"name"`
+	UserID          int    `gorm:"column:user_id" json:"user_id"`
+	BalanceStatusID int    `gorm:"column:balance_status_id" json:"balance_status_id"`
 }
 
 func (Balance) TableName() string { return "balances" }

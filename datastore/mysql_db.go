@@ -5,7 +5,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func NewDB() (*gorm.DB, error) {
+func NewMyqlDB() (*gorm.DB, error) {
 	DBMS := "mysql"
 	mySqlConfig := &mysql.Config{
 		User:                 "root",

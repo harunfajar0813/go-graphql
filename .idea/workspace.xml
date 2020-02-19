@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="763b8557-a58b-4e78-9af6-6c42b7b4e765" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/autoload/entity.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autoload/entity.go" beforeDir="false" afterPath="$PROJECT_DIR$/autoload/entity.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/datastore/mysql_db.go" beforeDir="false" afterPath="$PROJECT_DIR$/datastore/mysql_db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/model/event.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/model/event.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/model/balance.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/model/balance.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/model/balance_status.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/model/balance_status.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/domain/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/model/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/field/balances.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/field/balances_status.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/field/events.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/field/events.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/field/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/field/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphql/query.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/query.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/handler.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,22 +75,22 @@
       <screen x="38" y="27" width="1328" height="741" />
     </state>
     <state x="485" y="155" width="424" height="491" key="FileChooserDialogImpl/38.27.1328.741@38.27.1328.741" timestamp="1581974958310" />
-    <state width="1282" height="172" key="GridCell.Tab.0.bottom" timestamp="1582037300960">
+    <state width="1282" height="172" key="GridCell.Tab.0.bottom" timestamp="1582082347202">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.bottom/38.27.1328.741@38.27.1328.741" timestamp="1582037300960" />
-    <state width="1282" height="172" key="GridCell.Tab.0.center" timestamp="1582037300960">
+    <state width="1282" height="172" key="GridCell.Tab.0.bottom/38.27.1328.741@38.27.1328.741" timestamp="1582082347202" />
+    <state width="1282" height="172" key="GridCell.Tab.0.center" timestamp="1582082347202">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.center/38.27.1328.741@38.27.1328.741" timestamp="1582037300960" />
-    <state width="1282" height="172" key="GridCell.Tab.0.left" timestamp="1582037300959">
+    <state width="1282" height="172" key="GridCell.Tab.0.center/38.27.1328.741@38.27.1328.741" timestamp="1582082347202" />
+    <state width="1282" height="172" key="GridCell.Tab.0.left" timestamp="1582082347201">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.left/38.27.1328.741@38.27.1328.741" timestamp="1582037300959" />
-    <state width="1282" height="172" key="GridCell.Tab.0.right" timestamp="1582037300960">
+    <state width="1282" height="172" key="GridCell.Tab.0.left/38.27.1328.741@38.27.1328.741" timestamp="1582082347201" />
+    <state width="1282" height="172" key="GridCell.Tab.0.right" timestamp="1582082347202">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.right/38.27.1328.741@38.27.1328.741" timestamp="1582037300960" />
+    <state width="1282" height="172" key="GridCell.Tab.0.right/38.27.1328.741@38.27.1328.741" timestamp="1582082347202" />
     <state x="365" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1582034843746">
       <screen x="38" y="27" width="1328" height="741" />
     </state>

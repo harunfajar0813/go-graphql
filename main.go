@@ -16,7 +16,7 @@ func init() {
 }
 
 func main() {
-	db, err := datastore.NewDB()
+	db, err := datastore.NewMyqlDB()
 	if err != nil {
 		log.Fatal(err)
 	}
