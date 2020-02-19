@@ -3,8 +3,8 @@ package autoload
 import (
 	"log"
 
-	"graphi/domain/model"
 	"graphi/datastore"
+	"graphi/domain/model"
 )
 
 func Load() {
@@ -14,10 +14,16 @@ func Load() {
 	}
 	defer db.Close()
 
-	err = db.Debug().DropTableIfExists(&model.Event{}, &model.User{}, &model.BalanceStatus{}, &model.Balance{}).Error
+	err = db.Debug().DropTableIfExists(&model.Event{}, &model.Balance{}).Error
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	err = db.Debug().DropTableIfExists(&model.User{}, &model.BalanceStatus{}).Error
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	err = db.Debug().AutoMigrate(&model.User{}, &model.Event{}, &model.BalanceStatus{}, &model.Balance{}).Error
 	if err != nil {
 		log.Fatal(err)

@@ -15,5 +15,3 @@ type Event struct {
 	UpdatedAt   time.Time `gorm:"default:current_timestamp()" json:"created_at"`
 	DeletedAt   time.Time `gorm:"default:null" json:"created_at"`
 }
-
-func (Event) TableName() string { return "events" }

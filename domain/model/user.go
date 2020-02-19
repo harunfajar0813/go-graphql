@@ -14,5 +14,3 @@ type User struct {
 	UpdatedAt time.Time `gorm:"default:current_timestamp()" json:"created_at"`
 	DeletedAt time.Time `gorm:"default:null" json:"created_at"`
 }
-
-func (User) TableName() string { return "users" }

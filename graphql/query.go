@@ -11,10 +11,11 @@ func queries(db *gorm.DB) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Query",
 		Fields: graphql.Fields{
-			"getUsers":  field.GetUsers(db),
-			"getUser":   field.GetUser(db),
-			"getEvents": field.GetEvents(db),
-			"getEvent":  field.GetEvent(db),
+			"getUsers":          field.GetUsers(db),
+			"getEvents":         field.GetEvents(db),
+			"getBalancesStatus": field.GetBalancesStatus(db),
+			"getUser":           field.GetUser(db),
+			"getEvent":          field.GetEvent(db),
 		},
 	})
 }
