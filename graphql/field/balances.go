@@ -3,17 +3,17 @@ package field
 import (
 	"github.com/graphql-go/graphql"
 	"github.com/jinzhu/gorm"
-	"graphi/domain/model"
 	"log"
+
+	"graphi/domain/model"
 )
 
 var balances = graphql.NewObject(graphql.ObjectConfig{
 	Name: "Balances",
 	Fields: graphql.Fields{
-		"id":                &graphql.Field{Type: graphql.ID},
-		"name":              &graphql.Field{Type: graphql.String},
-		"user_id":           &graphql.Field{Type: graphql.Int},
-		"balance_status_id": &graphql.Field{Type: graphql.Int},
+		"id":      &graphql.Field{Type: graphql.ID},
+		"amount":  &graphql.Field{Type: graphql.Int},
+		"user_id": &graphql.Field{Type: graphql.Int},
 	},
 	Description: "Balances status data",
 })
@@ -28,6 +28,37 @@ func GetBalances(db *gorm.DB) *graphql.Field {
 			}
 			return b, nil
 		},
-		Description: "get users",
+		Description: "get balances",
+	}
+}
+
+// Mutation
+func TopUpBalance(db *gorm.DB) *graphql.Field {
+	return &graphql.Field{
+		Type: balances,
+		Args: graphql.FieldConfigArgument{
+			"amount": &graphql.ArgumentConfig{
+				Type: graphql.NewNonNull(graphql.Int),
+			},
+			"user_id": &graphql.ArgumentConfig{
+				Type: graphql.NewNonNull(graphql.Int),
+			},
+		},
+		Resolve: func(params graphql.ResolveParams) (i interface{}, e error) {
+			amount, _ := params.Args["amount"].(int)
+			userId, _ := params.Args["user_id"].(int)
+
+			newBalance := &model.Balance{
+				Amount: amount,
+				UserID: userId,
+			}
+
+			err := db.Debug().Model(&model.Balance{}).Create(&newBalance).Error
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			return newBalance, nil
+		},
 	}
 }

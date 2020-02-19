@@ -13,7 +13,6 @@ func queries(db *gorm.DB) *graphql.Object {
 		Fields: graphql.Fields{
 			"getUsers":          field.GetUsers(db),
 			"getEvents":         field.GetEvents(db),
-			"getBalancesStatus": field.GetBalancesStatus(db),
 			"getBalances":       field.GetBalances(db),
 			"getUser":           field.GetUser(db),
 			"getEvent":          field.GetEvent(db),
@@ -27,6 +26,7 @@ func mutation(db *gorm.DB) *graphql.Object {
 		Fields: graphql.Fields{
 			"createUser":  field.CreateUser(db),
 			"createEvent": field.CreateEvent(db),
+			"topUpBalance": field.TopUpBalance(db),
 		},
 	})
 }

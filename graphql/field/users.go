@@ -21,6 +21,7 @@ var user = graphql.NewObject(
 			"phone":     &graphql.Field{Type: graphql.String},
 			"password":  &graphql.Field{Type: graphql.String},
 			"events":    &graphql.Field{Type: graphql.NewList(event)},
+			"balance":   &graphql.Field{Type: graphql.String},
 		},
 		Description: "Users data",
 	},
