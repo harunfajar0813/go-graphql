@@ -13,6 +13,7 @@ var balancesStatus = graphql.NewObject(graphql.ObjectConfig{
 	Fields: graphql.Fields{
 		"id":   &graphql.Field{Type: graphql.ID},
 		"name": &graphql.Field{Type: graphql.String},
+		"balances": &graphql.Field{Type: graphql.NewList(balances)},
 	},
 	Description: "Balances status data",
 })
@@ -23,6 +24,9 @@ func GetBalancesStatus(db *gorm.DB) *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (i interface{}, err error) {
 			var bs []*model.BalanceStatus
 			if err := db.Find(&bs).Error; err != nil {
+				log.Fatal(err)
+			}
+			if err := db.Preload("Balances").Find(&bs).Error; err != nil {
 				log.Fatal(err)
 			}
 			return bs, nil
