@@ -18,6 +18,7 @@ var balances = graphql.NewObject(graphql.ObjectConfig{
 	Description: "Balances status data",
 })
 
+// query
 func GetBalances(db *gorm.DB) *graphql.Field {
 	return &graphql.Field{
 		Type: graphql.NewList(balances),

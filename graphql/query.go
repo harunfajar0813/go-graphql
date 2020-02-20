@@ -11,22 +11,11 @@ func queries(db *gorm.DB) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Query",
 		Fields: graphql.Fields{
-			"getUsers":          field.GetUsers(db),
-			"getEvents":         field.GetEvents(db),
-			"getBalances":       field.GetBalances(db),
-			"getUser":           field.GetUser(db),
-			"getEvent":          field.GetEvent(db),
-		},
-	})
-}
-
-func mutation(db *gorm.DB) *graphql.Object {
-	return graphql.NewObject(graphql.ObjectConfig{
-		Name: "Mutation",
-		Fields: graphql.Fields{
-			"createUser":  field.CreateUser(db),
-			"createEvent": field.CreateEvent(db),
-			"topUpBalance": field.TopUpBalance(db),
+			"getUsers":    field.GetUsers(db),
+			"getEvents":   field.GetEvents(db),
+			"getBalances": field.GetBalances(db),
+			"getUser":     field.GetUser(db),
+			"getEvent":    field.GetEvent(db),
 		},
 	})
 }
