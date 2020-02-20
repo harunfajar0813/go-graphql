@@ -14,14 +14,14 @@ var user = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "User",
 		Fields: graphql.Fields{
-			"id":        &graphql.Field{Type: graphql.ID},
-			"firstName": &graphql.Field{Type: graphql.String},
-			"lastName":  &graphql.Field{Type: graphql.String},
-			"email":     &graphql.Field{Type: graphql.String},
-			"phone":     &graphql.Field{Type: graphql.String},
-			"password":  &graphql.Field{Type: graphql.String},
-			"events":    &graphql.Field{Type: graphql.NewList(event)},
-			"balance":   &graphql.Field{Type: graphql.String},
+			"id":          &graphql.Field{Type: graphql.ID},
+			"name":        &graphql.Field{Type: graphql.String},
+			"description": &graphql.Field{Type: graphql.String},
+			"email":       &graphql.Field{Type: graphql.String},
+			"phone":       &graphql.Field{Type: graphql.String},
+			"password":    &graphql.Field{Type: graphql.String},
+			"events":      &graphql.Field{Type: graphql.NewList(event)},
+			"balance":     &graphql.Field{Type: graphql.String},
 		},
 		Description: "Users data",
 	},
@@ -86,10 +86,10 @@ func CreateUser(db *gorm.DB) *graphql.Field {
 	return &graphql.Field{
 		Type: user,
 		Args: graphql.FieldConfigArgument{
-			"firstName": &graphql.ArgumentConfig{
+			"name": &graphql.ArgumentConfig{
 				Type: graphql.NewNonNull(graphql.String),
 			},
-			"lastName": &graphql.ArgumentConfig{
+			"description": &graphql.ArgumentConfig{
 				Type: graphql.NewNonNull(graphql.String),
 			},
 			"email": &graphql.ArgumentConfig{
@@ -103,18 +103,18 @@ func CreateUser(db *gorm.DB) *graphql.Field {
 			},
 		},
 		Resolve: func(params graphql.ResolveParams) (i interface{}, e error) {
-			firstName, _ := params.Args["firstName"].(string)
-			lastName, _ := params.Args["lastName"].(string)
+			name, _ := params.Args["name"].(string)
+			description, _ := params.Args["description"].(string)
 			email, _ := params.Args["email"].(string)
 			phone, _ := params.Args["phone"].(string)
 			hashedPass, _ := bcrypt.GenerateFromPassword([]byte(params.Args["password"].(string)), bcrypt.DefaultCost)
 
 			newUser := &model.User{
-				FirstName: firstName,
-				LastName:  lastName,
-				Email:     email,
-				Phone:     phone,
-				Password:  string(hashedPass),
+				Name:        name,
+				Description: description,
+				Email:       email,
+				Phone:       phone,
+				Password:    string(hashedPass),
 			}
 
 			err := db.Debug().Model(&model.User{}).Create(&newUser).Error

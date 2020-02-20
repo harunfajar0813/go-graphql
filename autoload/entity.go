@@ -14,17 +14,17 @@ func Load() {
 	}
 	defer db.Close()
 
-	err = db.Debug().DropTableIfExists(&model.Transaction{}, &model.Event{}, &model.Balance{}).Error
+	err = db.Debug().DropTableIfExists(&model.Event{}, &model.Balance{}).Error
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = db.Debug().DropTableIfExists(&model.User{}, &model.Client{}).Error
+	err = db.Debug().DropTableIfExists(&model.User{}).Error
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = db.Debug().AutoMigrate(&model.Client{}, &model.User{}, &model.Event{}, &model.Balance{}, &model.Transaction{}).Error
+	err = db.Debug().AutoMigrate(&model.User{}, &model.Event{}, &model.Balance{}).Error
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,16 +35,6 @@ func Load() {
 	}
 
 	err = db.Debug().Model(&model.Balance{}).AddForeignKey("user_id", "users(id)", "cascade", "cascade").Error
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = db.Debug().Model(&model.Transaction{}).AddForeignKey("client_id", "clients(id)", "cascade", "cascade").Error
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = db.Debug().Model(&model.Transaction{}).AddForeignKey("event_id", "events(id)", "cascade", "cascade").Error
 	if err != nil {
 		log.Fatal(err)
 	}
