@@ -10,22 +10,19 @@ import (
 	"graphi/domain/model"
 )
 
-var user = graphql.NewObject(
-	graphql.ObjectConfig{
-		Name: "User",
-		Fields: graphql.Fields{
-			"id":          &graphql.Field{Type: graphql.ID},
-			"name":        &graphql.Field{Type: graphql.String},
-			"description": &graphql.Field{Type: graphql.String},
-			"email":       &graphql.Field{Type: graphql.String},
-			"phone":       &graphql.Field{Type: graphql.String},
-			"password":    &graphql.Field{Type: graphql.String},
-			"events":      &graphql.Field{Type: graphql.NewList(event)},
-			"balance":     &graphql.Field{Type: graphql.String},
-		},
-		Description: "Users data",
+var user = graphql.NewObject(graphql.ObjectConfig{
+	Name: "User",
+	Fields: graphql.Fields{
+		"id":          &graphql.Field{Type: graphql.ID},
+		"name":        &graphql.Field{Type: graphql.String},
+		"description": &graphql.Field{Type: graphql.String},
+		"email":       &graphql.Field{Type: graphql.String},
+		"phone":       &graphql.Field{Type: graphql.String},
+		"password":    &graphql.Field{Type: graphql.String},
+		"events":      &graphql.Field{Type: graphql.NewList(event)},
 	},
-)
+	Description: "Users data",
+})
 
 // query
 func GetUsers(db *gorm.DB) *graphql.Field {
@@ -33,15 +30,8 @@ func GetUsers(db *gorm.DB) *graphql.Field {
 		Type: graphql.NewList(user),
 		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
 			var u []*model.User
-			if err := db.Find(&u).Error; err != nil {
+			if err := db.Where("user_role_id = ?", 1).Preload("Events").Find(&u).Error; err != nil {
 				log.Fatal(err)
-			}
-			if err := db.Preload("Events").Find(&u).Error; err != nil {
-				log.Fatal(err)
-			}
-			for _, user := range u {
-				row := db.Table("balances").Where("user_id = ?", user.ID).Select("sum(amount)").Row()
-				row.Scan(&user.Balance)
 			}
 			return u, nil
 		},
@@ -58,24 +48,16 @@ func GetUser(db *gorm.DB) *graphql.Field {
 			},
 		},
 		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
-			var u []*model.User
+			var u model.User
 
 			id, ok := p.Args["id"].(int)
 			if ok {
-				if err := db.First(&u, id).Error; err != nil {
+				if err := db.Where("user_role_id = ?", 1).Preload("Events").First(&u, id).Error; err != nil {
 					log.Fatal(err)
 					return nil, err
-				}
-				if err := db.Set("gorm:auto_preload", true).Find(&u[0].Events).Error; err != nil {
-					log.Fatal(err)
-					return nil, err
-				}
-				for _, user := range u {
-					row := db.Table("balances").Where("user_id = ?", u[0].ID).Select("sum(amount)").Row()
-					row.Scan(&user.Balance)
 				}
 			}
-			return u[0], nil
+			return u, nil
 		},
 		Description: "get user by id",
 	}
@@ -115,6 +97,7 @@ func CreateUser(db *gorm.DB) *graphql.Field {
 				Email:       email,
 				Phone:       phone,
 				Password:    string(hashedPass),
+				UserRoleID:  1,
 			}
 
 			err := db.Debug().Model(&model.User{}).Create(&newUser).Error

@@ -13,7 +13,6 @@ func queries(db *gorm.DB) *graphql.Object {
 		Fields: graphql.Fields{
 			"getUsers":    field.GetUsers(db),
 			"getEvents":   field.GetEvents(db),
-			"getBalances": field.GetBalances(db),
 			"getUser":     field.GetUser(db),
 			"getEvent":    field.GetEvent(db),
 		},

@@ -20,7 +20,6 @@ var event = graphql.NewObject(graphql.ObjectConfig{
 		"startEvent":  &graphql.Field{Type: graphql.String},
 		"price":       &graphql.Field{Type: graphql.Int},
 		"stock":       &graphql.Field{Type: graphql.Int},
-		"userId":      &graphql.Field{Type: graphql.Int},
 	},
 	Description: "Events data",
 })
@@ -31,7 +30,11 @@ func GetEvents(db *gorm.DB) *graphql.Field {
 		Type: graphql.NewList(event),
 		Resolve: func(p graphql.ResolveParams) (i interface{}, err error) {
 			var e []*model.Event
-			if err := db.Find(&e).Error; err != nil {
+			if err := db.Table("events").
+				Select("events.id, events.name, events.description, events.address, events.start_event, events.price, events.stock").
+				Joins("join users on users.id = events.user_id").
+				Where("users.user_role_id = ?", 1).
+				Find(&e).Error; err != nil {
 				log.Fatal(err)
 			}
 			return e, nil
@@ -50,7 +53,7 @@ func GetEvent(db *gorm.DB) *graphql.Field {
 			},
 		},
 		Resolve: func(p graphql.ResolveParams) (i interface{}, err error) {
-			var e []*model.Event
+			var e model.Event
 
 			id, ok := p.Args["id"].(int)
 			if ok {
@@ -58,8 +61,15 @@ func GetEvent(db *gorm.DB) *graphql.Field {
 					log.Fatal(err)
 					return nil, err
 				}
+				if err := db.Table("events").
+					Select("events.id, events.name, events.description, events.address, events.start_event, events.price, events.stock").
+					Joins("join users on users.id = events.user_id").
+					Where("users.user_role_id = ?", 1).
+					First(&e, id).Error; err != nil {
+					log.Fatal(err)
+				}
 			}
-			return e[0], nil
+			return e, nil
 		},
 		Description: "get event by id",
 	}
@@ -105,6 +115,11 @@ func CreateEvent(db *gorm.DB) *graphql.Field {
 				log.Fatal(errors.New("cannot set price is under 0"))
 				return nil, errors.New("cannot set price is under 0")
 			} else {
+				var result int64
+				db.Table("users").
+					Where("users.user_role_id = ?", 1).
+					Where("users.id = ?", userId).
+					Count(&result)
 				newEvent := &model.Event{
 					Name:        name,
 					Description: description,
@@ -113,6 +128,9 @@ func CreateEvent(db *gorm.DB) *graphql.Field {
 					Price:       price,
 					Stock:       stock,
 					UserID:      userId,
+				}
+				if result == 0 {
+					log.Fatal("not found")
 				}
 				err = db.Debug().Model(&model.Event{}).Create(newEvent).Error
 				if err != nil {

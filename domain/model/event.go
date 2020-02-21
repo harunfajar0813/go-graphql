@@ -11,6 +11,7 @@ type Event struct {
 	Price       int       `gorm:"column:price" json:"price"`
 	Stock       int       `gorm:"column:stock" json:"stock"`
 	UserID      int       `gorm:"column:user_id" json:"user_id"`
+	User        User      `gorm:"-", json:"user"`
 	CreatedAt   time.Time `gorm:"default:current_timestamp()" json:"created_at"`
 	UpdatedAt   time.Time `gorm:"default:current_timestamp()" json:"created_at"`
 	DeletedAt   time.Time `gorm:"default:null" json:"created_at"`

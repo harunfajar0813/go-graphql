@@ -11,9 +11,9 @@ func mutation(db *gorm.DB) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Mutation",
 		Fields: graphql.Fields{
-			"createUser":   field.CreateUser(db),
-			"createEvent":  field.CreateEvent(db),
-			"topUpBalance": field.TopUpBalance(db),
+			"createUser":     field.CreateUser(db),
+			"createEvent":    field.CreateEvent(db),
+			"createUserRole": field.CreateUserRole(db),
 		},
 	})
 }

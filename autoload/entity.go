@@ -14,7 +14,7 @@ func Load() {
 	}
 	defer db.Close()
 
-	err = db.Debug().DropTableIfExists(&model.Event{}, &model.Balance{}, &model.User{}).Error
+	err = db.Debug().DropTableIfExists(&model.Event{}, &model.User{}).Error
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -24,17 +24,12 @@ func Load() {
 		log.Fatal(err)
 	}
 
-	err = db.Debug().AutoMigrate(&model.User{}, &model.Event{}, &model.Balance{}, &model.UserRole{}).Error
+	err = db.Debug().AutoMigrate(&model.User{}, &model.Event{}, &model.UserRole{}).Error
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	err = db.Debug().Model(&model.Event{}).AddForeignKey("user_id", "users(id)", "cascade", "cascade").Error
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = db.Debug().Model(&model.Balance{}).AddForeignKey("user_id", "users(id)", "cascade", "cascade").Error
 	if err != nil {
 		log.Fatal(err)
 	}
