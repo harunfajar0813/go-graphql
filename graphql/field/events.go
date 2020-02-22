@@ -20,6 +20,15 @@ var event = graphql.NewObject(graphql.ObjectConfig{
 		"startEvent":  &graphql.Field{Type: graphql.String},
 		"price":       &graphql.Field{Type: graphql.Int},
 		"stock":       &graphql.Field{Type: graphql.Int},
+		"user": &graphql.Field{Type: graphql.NewObject(graphql.ObjectConfig{
+			Name: "EventOrganizer",
+			Fields: graphql.Fields{
+				"id":    &graphql.Field{Type: graphql.ID},
+				"name":  &graphql.Field{Type: graphql.String},
+				"email": &graphql.Field{Type: graphql.String},
+				"phone": &graphql.Field{Type: graphql.String},
+			},
+		})},
 	},
 	Description: "Events data",
 })
@@ -30,12 +39,41 @@ func GetEvents(db *gorm.DB) *graphql.Field {
 		Type: graphql.NewList(event),
 		Resolve: func(p graphql.ResolveParams) (i interface{}, err error) {
 			var e []*model.Event
-			if err := db.Table("events").
-				Select("events.id, events.name, events.description, events.address, events.start_event, events.price, events.stock").
+			rows, err := db.Table("events").
+				Select("events.id, "+
+					"events.name, "+
+					"events.description, "+
+					"events.address,"+
+					"events.start_event, "+
+					"events.price, "+
+					"events.stock, "+
+					"users.id, "+
+					"users.name, "+
+					"users.email, "+
+					"users.phone").
 				Joins("join users on users.id = events.user_id").
 				Where("users.user_role_id = ?", 1).
-				Find(&e).Error; err != nil {
-				log.Fatal(err)
+				Rows()
+			defer rows.Close()
+
+			var event model.Event
+
+			for rows.Next() {
+				err := rows.Scan(&event.ID,
+					&event.Name,
+					&event.Description,
+					&event.Address,
+					&event.StartEvent,
+					&event.Price,
+					&event.Stock,
+					&event.User.ID,
+					&event.User.Name,
+					&event.User.Email,
+					&event.User.Phone)
+				if err != nil {
+					log.Fatal(err)
+				}
+				e = append(e, &event)
 			}
 			return e, nil
 		},
@@ -62,11 +100,21 @@ func GetEvent(db *gorm.DB) *graphql.Field {
 					return nil, err
 				}
 				if err := db.Table("events").
-					Select("events.id, events.name, events.description, events.address, events.start_event, events.price, events.stock").
+					Select("events.id, "+
+						"events.name, "+
+						"events.description, "+
+						"events.address, "+
+						"events.start_event, "+
+						"events.price, "+
+						"events.stock, "+
+						"users.id, "+
+						"users.name, "+
+						"users.email, "+
+						"users.phone").
 					Joins("join users on users.id = events.user_id").
 					Where("users.user_role_id = ?", 1).
-					Preload("Users").
-					First(&e, id).Error; err != nil {
+					Row().Scan(&e.ID, &e.Name, &e.Description, &e.Address, &e.StartEvent, &e.Price, &e.Stock,
+					&e.User.ID, &e.User.Name, &e.User.Email, &e.User.Phone); err != nil {
 					log.Fatal(err)
 				}
 			}
