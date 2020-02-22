@@ -65,6 +65,7 @@ func GetEvent(db *gorm.DB) *graphql.Field {
 					Select("events.id, events.name, events.description, events.address, events.start_event, events.price, events.stock").
 					Joins("join users on users.id = events.user_id").
 					Where("users.user_role_id = ?", 1).
+					Preload("Users").
 					First(&e, id).Error; err != nil {
 					log.Fatal(err)
 				}
