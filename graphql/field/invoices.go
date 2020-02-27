@@ -31,6 +31,11 @@ func CreateInvoice(db *gorm.DB) *graphql.Field {
 			userId, _ := params.Args["userId"].(int)
 			eventId, _ := params.Args["eventId"].(int)
 
+			var stockTicketNow int
+			db.Table("invoices").
+				Where("invoices.event_id = ?", eventId).
+				Count(&stockTicketNow)
+
 			var saldoUser int
 			var userRole int
 			db.Table("balances").
@@ -56,7 +61,11 @@ func CreateInvoice(db *gorm.DB) *graphql.Field {
 				Row().
 				Scan(&hargaTiket, &stockTiket)
 
-			if ((saldoUser-riwayatTransaction) - hargaTiket) < 0 && userRole == 2 {
+			if stockTiket == stockTicketNow {
+				log.Fatal("ticket is empty")
+			}
+
+			if (saldoUser-riwayatTransaction)-hargaTiket < 0 && userRole != 2 {
 				log.Fatal("buy ticket is denied")
 			}
 

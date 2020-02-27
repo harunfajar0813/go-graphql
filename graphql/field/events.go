@@ -88,7 +88,6 @@ func GetEvents(db *gorm.DB) *graphql.Field {
 	}
 }
 
-// query
 func GetEvent(db *gorm.DB) *graphql.Field {
 	return &graphql.Field{
 		Type: event,
