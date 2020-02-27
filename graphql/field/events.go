@@ -124,6 +124,13 @@ func GetEvent(db *gorm.DB) *graphql.Field {
 					&e.User.ID, &e.User.Name, &e.User.Email, &e.User.Phone); err != nil {
 					log.Fatal(err)
 				}
+
+				var totalStock int
+				if err := db.Model(&model.Invoice{}).Where("event_id = ?", e.ID).Count(&totalStock).Error; err != nil {
+					log.Fatal(err)
+				} else {
+					e.Stock = e.Stock - totalStock
+				}
 			}
 			return e, nil
 		},
