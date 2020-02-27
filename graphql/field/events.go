@@ -57,7 +57,6 @@ func GetEvents(db *gorm.DB) *graphql.Field {
 			defer rows.Close()
 
 			var event model.Event
-
 			for rows.Next() {
 				err := rows.Scan(&event.ID,
 					&event.Name,
@@ -73,6 +72,14 @@ func GetEvents(db *gorm.DB) *graphql.Field {
 				if err != nil {
 					log.Fatal(err)
 				}
+
+				var totalStock int
+				if err := db.Model(&model.Invoice{}).Where("event_id = ?", event.ID).Count(&totalStock).Error; err != nil {
+					log.Fatal(err)
+				} else {
+					event.Stock = event.Stock - totalStock
+				}
+
 				e = append(e, &event)
 			}
 			return e, nil
