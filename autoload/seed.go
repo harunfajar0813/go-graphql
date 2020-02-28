@@ -35,3 +35,15 @@ var users = []model.User{
 		UserRoleID:  2,
 	},
 }
+
+var events = []model.Event{
+	model.Event{
+		Name:        "Music Ardhito",
+		Description: "Music event",
+		Address:     "malang",
+		StartEvent:  "2020-10-10",
+		Price:       100000,
+		Stock:       10,
+		UserID:      1,
+	},
+}

@@ -12,7 +12,7 @@ type User struct {
 	UserRoleID   int       `gorm:"column:user_role_id" json:"user_role_id"`
 	Events       []Event   `gorm:"PRELOAD:false" json:"events"`
 	TopUpHistory []Balance `json:"balance"`
-	BalanceNow   int       `gorm:"-" json:"balance"`
+	BalanceNow   int       `gorm:"-" json:"balanceNow"`
 	CreatedAt    time.Time `gorm:"default:current_timestamp()" json:"created_at"`
 	UpdatedAt    time.Time `gorm:"default:current_timestamp()" json:"created_at"`
 	DeletedAt    time.Time `gorm:"default:null" json:"created_at"`

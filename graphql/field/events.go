@@ -20,6 +20,7 @@ var event = graphql.NewObject(graphql.ObjectConfig{
 		"startEvent":  &graphql.Field{Type: graphql.String},
 		"price":       &graphql.Field{Type: graphql.Int},
 		"stock":       &graphql.Field{Type: graphql.Int},
+		"balance":     &graphql.Field{Type: graphql.String},
 		"user": &graphql.Field{Type: graphql.NewObject(graphql.ObjectConfig{
 			Name: "EventOrganizer",
 			Fields: graphql.Fields{

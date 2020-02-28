@@ -66,4 +66,11 @@ func Load() {
 			log.Fatal(err)
 		}
 	}
+
+	for i, _ := range events{
+		err = db.Debug().Model(&model.Event{}).Create(&events[i]).Error
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 }

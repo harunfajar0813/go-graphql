@@ -45,13 +45,13 @@ func CreateInvoice(db *gorm.DB) *graphql.Field {
 				Row().
 				Scan(&saldoUser, &userRole)
 
-			var riwayatTransaction int
+			var riwayatTransactionUserId int
 			db.Table("invoices").
 				Joins("join events on invoices.event_id=events.id").
 				Where("invoices.user_id = ?", userId).
 				Select("sum(events.price)").
 				Row().
-				Scan(&riwayatTransaction)
+				Scan(&riwayatTransactionUserId)
 
 			var hargaTiket int
 			var stockTiket int
@@ -61,11 +61,24 @@ func CreateInvoice(db *gorm.DB) *graphql.Field {
 				Row().
 				Scan(&hargaTiket, &stockTiket)
 
+			// 1 orang adalah 1 ticket
+			var invoicesCountByUserIDAndByEventID int
+			db.Table("invoices").
+				Select("sum(invoices.id) as n").
+				Where("invoices.user_id = ?", userId).
+				Where("invoices.event_id = ?", eventId).
+				Row().
+				Scan(&invoicesCountByUserIDAndByEventID)
+
 			if stockTiket == stockTicketNow {
 				log.Fatal("ticket is empty")
 			}
 
-			if (saldoUser-riwayatTransaction)-hargaTiket < 0 && userRole != 2 {
+			if invoicesCountByUserIDAndByEventID == 1{
+				log.Fatal("ticket is already bought")
+			}
+
+			if (saldoUser-riwayatTransactionUserId)-hargaTiket < 0 && userRole != 2 {
 				log.Fatal("buy ticket is denied")
 			}
 
