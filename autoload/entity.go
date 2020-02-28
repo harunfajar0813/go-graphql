@@ -52,4 +52,18 @@ func Load() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	for i, _ := range user_roles{
+		err = db.Debug().Model(&model.UserRole{}).Create(&user_roles[i]).Error
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	for i, _ := range users{
+		err = db.Debug().Model(&model.User{}).Create(&users[i]).Error
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 }
