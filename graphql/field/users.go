@@ -1,6 +1,7 @@
 package field
 
 import (
+	"database/sql"
 	"log"
 
 	"github.com/graphql-go/graphql"
@@ -35,14 +36,23 @@ func GetUsers(db *gorm.DB) *graphql.Field {
 				return err, err
 			}
 			for _, eo := range u {
-				var total int
-				err := db.Debug().Table("events").
+				//var totalEvents int
+				//if err := db.Debug().Table("events").
+				//	Select("select count(*) from events").
+				//	Where("events.user_id = ?", eo.ID). {
+				//
+				//}
+				var total sql.NullInt64
+				if err := db.Debug().Table("events").
 					Select("SUM((SELECT COUNT(*) FROM invoices WHERE invoices.event_id=events.id)*events.price) gaji").
-					Where("events.user_id = ?", eo.ID).Row().Scan(&total)
-				if err != nil {
+					Where("events.user_id = ?", eo.ID).Row().Scan(&total); err != nil {
 					return err, err
 				}
-				eo.BalanceNow += total
+				if total.Valid {
+					eo.BalanceNow += int(total.Int64)
+				} else {
+					eo.BalanceNow += 0
+				}
 			}
 			return u, nil
 		},
@@ -65,7 +75,7 @@ func GetUser(db *gorm.DB) *graphql.Field {
 			if ok {
 				var total int
 				err := db.Debug().Table("events").
-					Select("SUM((SELECT COUNT(*) FROM invoices WHERE invoices.event_id=events.id)*events.price) gaji").
+					Select("SUM((SELECT COUNT(*) FROM invoices WHERE invoices.event_id=events.id)*events.price) as n").
 					Where("events.user_id = ?", id).Row().Scan(&total)
 				if err != nil {
 					return err, err
