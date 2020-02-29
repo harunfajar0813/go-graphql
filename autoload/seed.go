@@ -46,4 +46,13 @@ var events = []model.Event{
 		Stock:       10,
 		UserID:      1,
 	},
+	model.Event{
+		Name:        "Seminar Nasional Ilmu Komputer",
+		Description: "Seminar Ilmiah",
+		Address:     "Surabaya",
+		StartEvent:  "2020-10-10",
+		Price:       50000,
+		Stock:       10,
+		UserID:      1,
+	},
 }
