@@ -28,11 +28,11 @@ var users = []model.User{
 		UserRoleID:  1,
 	},
 	model.User{
-		Name:        "Harun",
-		Email:       "harun@gmail.com",
-		Phone:       "0813",
-		Password:    "1234567890",
-		UserRoleID:  2,
+		Name:       "Harun",
+		Email:      "harun@gmail.com",
+		Phone:      "0813",
+		Password:   "1234567890",
+		UserRoleID: 2,
 	},
 }
 
@@ -44,6 +44,7 @@ var events = []model.Event{
 		StartEvent:  "2020-10-10",
 		Price:       100000,
 		Stock:       10,
+		TimeEvent:   "2000",
 		UserID:      1,
 	},
 	model.Event{
@@ -53,6 +54,7 @@ var events = []model.Event{
 		StartEvent:  "2020-10-10",
 		Price:       50000,
 		Stock:       10,
+		TimeEvent:   "2000",
 		UserID:      1,
 	},
 }

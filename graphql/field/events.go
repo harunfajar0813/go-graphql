@@ -21,6 +21,7 @@ var event = graphql.NewObject(graphql.ObjectConfig{
 		"price":       &graphql.Field{Type: graphql.Int},
 		"stock":       &graphql.Field{Type: graphql.Int},
 		"balance":     &graphql.Field{Type: graphql.String},
+		"timeEvent":   &graphql.Field{Type: graphql.String},
 		"user": &graphql.Field{Type: graphql.NewObject(graphql.ObjectConfig{
 			Name: "EventOrganizer",
 			Fields: graphql.Fields{
@@ -40,49 +41,63 @@ func GetEvents(db *gorm.DB) *graphql.Field {
 		Type: graphql.NewList(event),
 		Resolve: func(p graphql.ResolveParams) (i interface{}, err error) {
 			var e []*model.Event
-			rows, err := db.Table("events").
-				Select("events.id, "+
-					"events.name, "+
-					"events.description, "+
-					"events.address,"+
-					"events.start_event, "+
-					"events.price, "+
-					"events.stock, "+
-					"users.id, "+
-					"users.name, "+
-					"users.email, "+
-					"users.phone").
-				Joins("join users on users.id = events.user_id").
-				Where("users.user_role_id = ?", 1).
-				Rows()
-			defer rows.Close()
 
-			var event model.Event
-			for rows.Next() {
-				err := rows.Scan(&event.ID,
-					&event.Name,
-					&event.Description,
-					&event.Address,
-					&event.StartEvent,
-					&event.Price,
-					&event.Stock,
-					&event.User.ID,
-					&event.User.Name,
-					&event.User.Email,
-					&event.User.Phone)
-				if err != nil {
-					log.Fatal(err)
-				}
-
-				var totalStock int
-				if err := db.Model(&model.Invoice{}).Where("event_id = ?", event.ID).Count(&totalStock).Error; err != nil {
-					log.Fatal(err)
-				} else {
-					event.Stock = event.Stock - totalStock
-				}
-
-				e = append(e, &event)
+			if err := db.Debug().Find(&e).Error; err != nil {
+				log.Fatal(err)
 			}
+
+			for _, event := range e {
+				if err := db.Debug().First(&event.User, event.UserID).Error; err != nil {
+					log.Fatal(err)
+				}
+			}
+			//rows, err := db.Table("events").
+			//	Select("events.id, "+
+			//		"events.time_event, "+
+			//		"events.name, "+
+			//		"events.description, "+
+			//		"events.address,"+
+			//		"events.start_event, "+
+			//		"events.price, "+
+			//		"events.stock, "+
+			//		"users.id, "+
+			//		"users.name, "+
+			//		"users.email, "+
+			//		"users.phone").
+			//	Joins("left join users on users.id = events.user_id").
+			//	Where("users.user_role_id = ?", 1).
+			//	Rows()
+			//defer rows.Close()
+			//
+			//var event model.Event
+			//for rows.Next() {
+			//	err := rows.Scan(&event.ID,
+			//		&event.TimeEvent,
+			//		&event.Name,
+			//		&event.Description,
+			//		&event.Address,
+			//		&event.StartEvent,
+			//		&event.Price,
+			//		&event.Stock,
+			//		&event.User.ID,
+			//		&event.User.Name,
+			//		&event.User.Email,
+			//		&event.User.Phone)
+			//	if err != nil {
+			//		log.Fatal(err)
+			//	}
+			//
+			//	var totalStock int
+			//	if err := db.Model(&model.Invoice{}).Where("event_id = ?", event.ID).Count(&totalStock).Error; err != nil {
+			//		log.Fatal(err)
+			//	} else {
+			//		event.TimeEvent = fmt.Sprintf("%s : %s",
+			//			string([]rune(event.TimeEvent)[0:2]),
+			//			string([]rune(event.TimeEvent)[2:4]))
+			//		event.Stock = event.Stock - totalStock
+			//	}
+			//e = append(e, &event)
+			//}
 			return e, nil
 		},
 		Description: "get events",
@@ -108,6 +123,7 @@ func GetEvent(db *gorm.DB) *graphql.Field {
 				}
 				if err := db.Table("events").
 					Select("events.id, "+
+						"events.start_time, "+
 						"events.name, "+
 						"events.description, "+
 						"events.address, "+
@@ -121,7 +137,7 @@ func GetEvent(db *gorm.DB) *graphql.Field {
 					Joins("join users on users.id = events.user_id").
 					Where("users.user_role_id = ?", 1).
 					Where("events.id = ?", e.ID).
-					Row().Scan(&e.ID, &e.Name, &e.Description, &e.Address, &e.StartEvent, &e.Price, &e.Stock,
+					Row().Scan(&e.ID, &e.TimeEvent, &e.Name, &e.Description, &e.Address, &e.StartEvent, &e.Price, &e.Stock,
 					&e.User.ID, &e.User.Name, &e.User.Email, &e.User.Phone); err != nil {
 					log.Fatal(err)
 				}
