@@ -1,8 +1,6 @@
 package field
 
 import (
-	"log"
-
 	"github.com/graphql-go/graphql"
 	"github.com/jinzhu/gorm"
 	"graphi/domain/model"
@@ -34,7 +32,7 @@ func CreateUserRole(db *gorm.DB) *graphql.Field {
 
 			err := db.Debug().Model(&model.UserRole{}).Create(&newUserRole).Error
 			if err != nil {
-				log.Fatal(err)
+				return err, err
 			}
 
 			return newUserRole, nil

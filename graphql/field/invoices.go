@@ -1,6 +1,7 @@
 package field
 
 import (
+	"errors"
 	"github.com/graphql-go/graphql"
 	"github.com/jinzhu/gorm"
 	"graphi/domain/model"
@@ -71,15 +72,15 @@ func CreateInvoice(db *gorm.DB) *graphql.Field {
 				Scan(&invoicesCountByUserIDAndByEventID)
 
 			if stockTiket == stockTicketNow {
-				log.Fatal("ticket is empty")
+				return errors.New("ticket is empty"), errors.New("ticket is empty")
 			}
 
-			if invoicesCountByUserIDAndByEventID == 1{
-				log.Fatal("ticket is already bought")
+			if invoicesCountByUserIDAndByEventID == 1 {
+				return errors.New("ticket is already bought"), errors.New("ticket is already bought")
 			}
 
 			if (saldoUser-riwayatTransactionUserId)-hargaTiket < 0 && userRole != 2 {
-				log.Fatal("buy ticket is denied")
+				return errors.New("buy ticket is denied"), errors.New("buy ticket is denied")
 			}
 
 			newInvoice := &model.Invoice{

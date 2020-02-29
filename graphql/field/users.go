@@ -20,7 +20,7 @@ var user = graphql.NewObject(graphql.ObjectConfig{
 		"phone":       &graphql.Field{Type: graphql.String},
 		"password":    &graphql.Field{Type: graphql.String},
 		"events":      &graphql.Field{Type: graphql.NewList(event)},
-		"balanceNow":     &graphql.Field{Type: graphql.Int},
+		"balanceNow":  &graphql.Field{Type: graphql.Int},
 	},
 	Description: "Users data",
 })
@@ -32,18 +32,15 @@ func GetUsers(db *gorm.DB) *graphql.Field {
 		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
 			var u []*model.User
 			if err := db.Where("user_role_id = ?", 1).Preload("Events").Find(&u).Error; err != nil {
-				log.Fatal(err)
+				return err, err
 			}
-			//SELECT
-			//SUM((SELECT COUNT(*) FROM invoices WHERE invoices.event_id=events.id)*events.price) gaji
-			//FROM events
 			for _, eo := range u {
 				var total int
 				err := db.Debug().Table("events").
 					Select("SUM((SELECT COUNT(*) FROM invoices WHERE invoices.event_id=events.id)*events.price) gaji").
 					Where("events.user_id = ?", eo.ID).Row().Scan(&total)
 				if err != nil {
-					log.Fatal(err)
+					return err, err
 				}
 				eo.BalanceNow += total
 			}
@@ -71,15 +68,14 @@ func GetUser(db *gorm.DB) *graphql.Field {
 					Select("SUM((SELECT COUNT(*) FROM invoices WHERE invoices.event_id=events.id)*events.price) gaji").
 					Where("events.user_id = ?", id).Row().Scan(&total)
 				if err != nil {
-					log.Fatal(err)
+					return err, err
 				}
 				u.BalanceNow += total
 
 				if err := db.Where("user_role_id = ?", 1).
 					Preload("Events").
 					First(&u, id).Error; err != nil {
-					log.Fatal(err)
-					return nil, err
+					return err, err
 				}
 			}
 			return u, nil

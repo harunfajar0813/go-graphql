@@ -1,8 +1,7 @@
 package field
 
 import (
-	"log"
-
+	"errors"
 	"github.com/graphql-go/graphql"
 	"github.com/jinzhu/gorm"
 
@@ -12,8 +11,8 @@ import (
 var balance = graphql.NewObject(graphql.ObjectConfig{
 	Name: "Balance",
 	Fields: graphql.Fields{
-		"id":      &graphql.Field{Type: graphql.ID},
-		"amount":  &graphql.Field{Type: graphql.String},
+		"id":        &graphql.Field{Type: graphql.ID},
+		"amount":    &graphql.Field{Type: graphql.String},
 		"createdAt": &graphql.Field{Type: graphql.String},
 	},
 	Description: "Balance data",
@@ -41,7 +40,7 @@ func TopUpBalance(db *gorm.DB) *graphql.Field {
 				Count(&result)
 
 			if result == 0 {
-				log.Fatal("not found")
+				return errors.New("not found"), errors.New("not found")
 			}
 
 			addBalance := &model.Balance{
@@ -51,7 +50,7 @@ func TopUpBalance(db *gorm.DB) *graphql.Field {
 
 			err := db.Debug().Model(&model.Balance{}).Create(&addBalance).Error
 			if err != nil {
-				log.Fatal(err)
+				return err, err
 			}
 
 			return addBalance, nil

@@ -32,7 +32,7 @@ func GetClients(db *gorm.DB) *graphql.Field {
 			if err := db.Where("user_role_id = ?", 2).
 				Preload("TopUpHistory").
 				Find(&c).Error; err != nil {
-				log.Fatal(err)
+				return err, err
 			}
 			for _, data := range c {
 				var balanceNow int
@@ -73,7 +73,7 @@ func GetClient(db *gorm.DB) *graphql.Field {
 				if err := db.Where("user_role_id = ?", 2).
 					Preload("TopUpHistory").
 					First(&c, id).Error; err != nil {
-					log.Fatal(err)
+					return err, err
 				}
 
 				var balanceNow int
