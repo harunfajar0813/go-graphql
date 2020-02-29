@@ -120,6 +120,7 @@ func GetEvent(db *gorm.DB) *graphql.Field {
 						"users.phone").
 					Joins("join users on users.id = events.user_id").
 					Where("users.user_role_id = ?", 1).
+					Where("events.id = ?", e.ID).
 					Row().Scan(&e.ID, &e.Name, &e.Description, &e.Address, &e.StartEvent, &e.Price, &e.Stock,
 					&e.User.ID, &e.User.Name, &e.User.Email, &e.User.Phone); err != nil {
 					log.Fatal(err)

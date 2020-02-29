@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="763b8557-a58b-4e78-9af6-6c42b7b4e765" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/autoload/seed.go" beforeDir="false" afterPath="$PROJECT_DIR$/autoload/seed.go" afterDir="false" />
-    </list>
+    <list default="true" id="763b8557-a58b-4e78-9af6-6c42b7b4e765" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,22 +81,22 @@
       <screen x="38" y="27" width="1328" height="741" />
     </state>
     <state x="485" y="155" width="424" height="491" key="FileChooserDialogImpl/38.27.1328.741@38.27.1328.741" timestamp="1582717676595" />
-    <state width="1282" height="172" key="GridCell.Tab.0.bottom" timestamp="1582912348317">
+    <state width="1282" height="172" key="GridCell.Tab.0.bottom" timestamp="1582972064625">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.bottom/38.27.1328.741@38.27.1328.741" timestamp="1582912348317" />
-    <state width="1282" height="172" key="GridCell.Tab.0.center" timestamp="1582912348314">
+    <state width="1282" height="172" key="GridCell.Tab.0.bottom/38.27.1328.741@38.27.1328.741" timestamp="1582972064625" />
+    <state width="1282" height="172" key="GridCell.Tab.0.center" timestamp="1582972064624">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.center/38.27.1328.741@38.27.1328.741" timestamp="1582912348314" />
-    <state width="1282" height="172" key="GridCell.Tab.0.left" timestamp="1582912348312">
+    <state width="1282" height="172" key="GridCell.Tab.0.center/38.27.1328.741@38.27.1328.741" timestamp="1582972064624" />
+    <state width="1282" height="172" key="GridCell.Tab.0.left" timestamp="1582972064624">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.left/38.27.1328.741@38.27.1328.741" timestamp="1582912348312" />
-    <state width="1282" height="172" key="GridCell.Tab.0.right" timestamp="1582912348315">
+    <state width="1282" height="172" key="GridCell.Tab.0.left/38.27.1328.741@38.27.1328.741" timestamp="1582972064624" />
+    <state width="1282" height="172" key="GridCell.Tab.0.right" timestamp="1582972064625">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.right/38.27.1328.741@38.27.1328.741" timestamp="1582912348315" />
+    <state width="1282" height="172" key="GridCell.Tab.0.right/38.27.1328.741@38.27.1328.741" timestamp="1582972064625" />
     <state x="362" y="27" width="669" height="741" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1582380354440">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
