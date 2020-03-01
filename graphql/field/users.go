@@ -36,12 +36,6 @@ func GetUsers(db *gorm.DB) *graphql.Field {
 				return err, err
 			}
 			for _, eo := range u {
-				//var totalEvents int
-				//if err := db.Debug().Table("events").
-				//	Select("select count(*) from events").
-				//	Where("events.user_id = ?", eo.ID). {
-				//
-				//}
 				var total sql.NullInt64
 				if err := db.Debug().Table("events").
 					Select("SUM((SELECT COUNT(*) FROM invoices WHERE invoices.event_id=events.id)*events.price) gaji").

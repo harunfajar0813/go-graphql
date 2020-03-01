@@ -1,8 +1,9 @@
 package autoload
 
 import (
-	"graphi/domain/model"
 	"time"
+
+	"graphi/domain/model"
 )
 
 var user_roles = []model.UserRole{

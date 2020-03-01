@@ -2,6 +2,7 @@ package field
 
 import (
 	"errors"
+
 	"github.com/graphql-go/graphql"
 	"github.com/jinzhu/gorm"
 
@@ -46,6 +47,12 @@ func GetEvents(db *gorm.DB) *graphql.Field {
 			for _, event := range e {
 				if err := db.Debug().First(&event.User, event.UserID).Error; err != nil {
 					return err, err
+				}
+				var totalStock int
+				if err := db.Model(&model.Invoice{}).Where("event_id = ?", event.ID).Count(&totalStock).Error; err != nil {
+					return err, err
+				} else {
+					event.Stock = event.Stock - totalStock
 				}
 			}
 			return e, nil

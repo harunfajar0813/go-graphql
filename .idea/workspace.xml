@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="763b8557-a58b-4e78-9af6-6c42b7b4e765" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autoload/seed.go" beforeDir="false" afterPath="$PROJECT_DIR$/autoload/seed.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphql/field/events.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/field/events.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graphql/field/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/graphql/field/users.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +39,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager" selected="Go Build.go build graphi">
     <configuration name="go build entity.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -89,22 +91,26 @@
       <screen x="38" y="27" width="1328" height="741" />
     </state>
     <state x="158" y="146" width="1069" height="517" key="FileDocumentManager.FileCacheConflict/38.27.1328.741@38.27.1328.741" timestamp="1582998099702" />
-    <state width="1282" height="172" key="GridCell.Tab.0.bottom" timestamp="1583000105073">
+    <state width="1282" height="171" key="GridCell.Tab.0.bottom" timestamp="1583051081297">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.bottom/38.27.1328.741@38.27.1328.741" timestamp="1583000105073" />
-    <state width="1282" height="172" key="GridCell.Tab.0.center" timestamp="1583000105073">
+    <state width="1282" height="171" key="GridCell.Tab.0.bottom/38.27.1328.741@38.27.1328.741" timestamp="1583051081297" />
+    <state width="1282" height="171" key="GridCell.Tab.0.center" timestamp="1583051081297">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.center/38.27.1328.741@38.27.1328.741" timestamp="1583000105073" />
-    <state width="1282" height="172" key="GridCell.Tab.0.left" timestamp="1583000105072">
+    <state width="1282" height="171" key="GridCell.Tab.0.center/38.27.1328.741@38.27.1328.741" timestamp="1583051081297" />
+    <state width="1282" height="171" key="GridCell.Tab.0.left" timestamp="1583051081296">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.left/38.27.1328.741@38.27.1328.741" timestamp="1583000105072" />
-    <state width="1282" height="172" key="GridCell.Tab.0.right" timestamp="1583000105073">
+    <state width="1282" height="171" key="GridCell.Tab.0.left/38.27.1328.741@38.27.1328.741" timestamp="1583051081296" />
+    <state width="1282" height="171" key="GridCell.Tab.0.right" timestamp="1583051081297">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
-    <state width="1282" height="172" key="GridCell.Tab.0.right/38.27.1328.741@38.27.1328.741" timestamp="1583000105073" />
+    <state width="1282" height="171" key="GridCell.Tab.0.right/38.27.1328.741@38.27.1328.741" timestamp="1583051081297" />
+    <state x="139" y="27" width="1022" height="737" key="SettingsEditor" timestamp="1583048930095">
+      <screen x="38" y="27" width="1328" height="741" />
+    </state>
+    <state x="139" y="27" width="1022" height="737" key="SettingsEditor/38.27.1328.741@38.27.1328.741" timestamp="1583048930095" />
     <state x="362" y="27" width="669" height="741" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1582380354440">
       <screen x="38" y="27" width="1328" height="741" />
     </state>
